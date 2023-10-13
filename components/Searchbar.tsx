@@ -31,9 +31,8 @@ const Searchbar = () => {
     try {
       setIsLoading(true);
       const product = await scrapeAndStoreProduct(searchPrompt);
-      
     } catch (error) {
-      console.log(error)
+      console.log(error);
     } finally {
       setIsLoading(false);
     }
@@ -48,8 +47,10 @@ const Searchbar = () => {
         placeholder="Enter product link"
         className="searchbar-input"
       />
-      <button type="submit" className="searchbar-btn"
-        disabled={searchPrompt === ''}
+      <button
+        type="submit"
+        className="searchbar-btn"
+        disabled={searchPrompt === ""}
       >
         {isLoading ? "Searching..." : "Search"}
       </button>
