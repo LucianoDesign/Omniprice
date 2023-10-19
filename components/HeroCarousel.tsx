@@ -44,6 +44,8 @@ const HeroCarousel = () => {
       />
     </div>
   );
+
+  // test
 };
 
 export default HeroCarousel;
