@@ -1,7 +1,9 @@
-import Navbar from "@/components/Navbar";
+import Nav from "@/components/Nav";
 import "./globals.css";
 import type { Metadata } from "next";
 import { Inter, Space_Grotesk } from "next/font/google";
+import { UserProvider } from "@auth0/nextjs-auth0/client";
+import { Providers } from "./providers";
 
 const inter = Inter({ subsets: ["latin"] });
 const spaceGrotesk = Space_Grotesk({
@@ -22,12 +24,14 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={inter.className}>
-        <main className="max-w-10xl mx-auto">
-          <Navbar />
-          {children}
-        </main>
-      </body>
+      <UserProvider>
+        <body className={inter.className}>
+          <Providers>
+            <Nav />
+            <main className="max-w-10xl mx-auto">{children}</main>
+          </Providers>
+        </body>
+      </UserProvider>
     </html>
   );
 }
