@@ -14,20 +14,30 @@ export function extractPrice(...elements: any) {
   for (const element of elements) {
     const priceText = element.text().trim();
 
-    if(priceText) {
-      const cleanPrice = priceText.replace(/[^\d.]/g, '');
-
-      let firstPrice; 
+    if (priceText) {
+      const cleanPrice = priceText.replace(/[^\d.]/g, '').replace('.', '');
+      let firstPrice;
 
       if (cleanPrice) {
-        firstPrice = cleanPrice.match(/\d+\.\d{2}/)?.[0];
-      } 
+        // Eliminar el punto decimal si existe en el precio limpio
+        firstPrice = cleanPrice.replace('.', '').match(/\d+,\d{2}/)?.[0];
+      }
 
+      console.log({ firstPrice, cleanPrice });
       return firstPrice || cleanPrice;
     }
   }
-
-  return '';
+  return ''
+}
+// Extracts the if it is OutOfStock
+export function extractOutOfStock(...elements: any) {
+  for (let i = 0; i < elements.length; i++) {
+    const stock = elements[i].text().trim().toLowerCase();
+    if (stock === 'stock disponible' || stock === 'en stock' || stock === 'disponible') {
+      return false; // Hay stock
+    }
+  }
+  return true; // Todos los elementos indican que está fuera de stock
 }
 
 // Extracts and returns the currency symbol from an element.
@@ -42,6 +52,8 @@ export function extractDescription($: any) {
   const selectors = [
     ".a-unordered-list .a-list-item",
     ".a-expander-content p",
+    ".ui-pdp-description",
+    
     // Add more selectors here if needed
   ];
 
