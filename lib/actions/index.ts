@@ -100,10 +100,10 @@ export async function getAllProducts() {
     console.log(error);
   }
 }
-export async function getSelectedProducts(userId: string) {
+export async function getSelectedProducts(sid: string) {
   try {
     connectToDB();
-    const user = await Users.findOne({userId}).populate('productsList')
+    const user = await Users.findOne({sid}).populate('productsList')
     const products = user.productsList;
     return products
   } catch (error) {
