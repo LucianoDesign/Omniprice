@@ -27,7 +27,7 @@ const Home = async () => {
               <span className='text-primary'> OmniPrice</span>
             </h1>
             <p className='mt-6'>
-              Powerful, self-serve product and growth analytics to hel you convert, engage, and retain more.
+              Track the prices from Mercado Libre and get the best price always.
             </p>
             <Searchbar />
           </div>

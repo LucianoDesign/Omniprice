@@ -36,56 +36,52 @@ export async function scrapeAmazonProduct(url: string) {
     const $ = cheerio.load(response.data);
 
     const title = $(".ui-pdp-title").text().trim();
-    console.log(title);
+
     const priceMetaTag = $('meta[itemprop="price"]');
     const currentPrice = priceMetaTag.attr("content");
     const originalPrice = extractPrice(
-      $('#priceblock_ourprice'),
-      $('.a-price.a-text-price span.a-offscreen'),
-      $('#listPrice'),
-      $('#priceblock_dealprice'),
-      $('.a-size-base.a-color-price'),
-      $('.ui-pdp-price__main-container span.andes-money-amount__fraction').first()
+      $("#priceblock_ourprice"),
+      $(".a-price.a-text-price span.a-offscreen"),
+      $("#listPrice"),
+      $("#priceblock_dealprice"),
+      $(".a-size-base.a-color-price"),
+      $(
+        ".ui-pdp-price__main-container span.andes-money-amount__fraction"
+      ).first()
     );
-    console.log(originalPrice)
 
-    console.log(currentPrice);
     const outOfStock = extractOutOfStock(
       $("#stock_information p"),
       $(".ui-pdp-stock-information p")
     );
-    console.log(outOfStock);
+
     const images = $("img[data-zoom]").attr("data-zoom") || "{}";
 
-    console.log(images);
-
     const currency = $('span[itemprop="priceCurrency"]').text().trim();
-    console.log(currency);
 
-    const discountRate = $('.andes-money-amount__discount').text().match(/\d+/);
+    const discountRate = $(".andes-money-amount__discount").text().match(/\d+/);
     const numericDiscountRate = discountRate ? Number(discountRate[0]) : 0;
-    console.log(numericDiscountRate)
-    const description = extractDescription($)
-    console.log(description)
+
+    const description = extractDescription($);
 
     const data = {
       url,
-      currency: currency || '$',
+      currency: currency || "$",
       image: images,
       title,
       currentPrice: Number(currentPrice) || Number(originalPrice),
       originalPrice: Number(originalPrice) || Number(currentPrice),
       priceHistory: [],
-      discountRate: Number(discountRate),
-      category: 'category',
-      reviewsCount:100,
+      discountRate: Number(numericDiscountRate),
+      category: "category",
+      reviewsCount: 100,
       stars: 4.5,
       isOutOfStock: outOfStock,
       description,
       lowestPrice: Number(currentPrice) || Number(originalPrice),
       highestPrice: Number(originalPrice) || Number(currentPrice),
       averagePrice: Number(currentPrice) || Number(originalPrice),
-    }
+    };
     /* 
     // Extract the product title
     const title = $('#productTitle').text().trim();
@@ -136,9 +132,9 @@ export async function scrapeAmazonProduct(url: string) {
       highestPrice: Number(originalPrice) || Number(currentPrice),
       averagePrice: Number(currentPrice) || Number(originalPrice),
     }
-    console.log(data)
+   
     return data; */
-    return data
+    return data;
   } catch (error: any) {
     console.log(error.message);
   }

@@ -23,7 +23,7 @@ export function extractPrice(...elements: any) {
         firstPrice = cleanPrice.replace('.', '').match(/\d+,\d{2}/)?.[0];
       }
 
-      console.log({ firstPrice, cleanPrice });
+     
       return firstPrice || cleanPrice;
     }
   }

@@ -5,7 +5,7 @@ import React, { FormEvent, useState } from "react";
 import Swal from "sweetalert2";
 
 const Searchbar = () => {
-  const { user } = useUser()
+  const { user } = useUser();
   const [searchPrompt, setSearchPrompt] = useState("");
   const [isLoading, setIsLoading] = useState(false);
 
@@ -17,10 +17,10 @@ const Searchbar = () => {
       if (
         hostname.includes("amazon.com") ||
         hostname.includes("amazon.") ||
-        hostname.endsWith("amazon") || 
+        hostname.endsWith("amazon") ||
         hostname.includes("mercadolibre.com") ||
         hostname.includes("mercadolibre.") ||
-        hostname.endsWith('mercadlibre')
+        hostname.endsWith("mercadlibre")
       )
         return true;
     } catch (error) {
@@ -32,25 +32,36 @@ const Searchbar = () => {
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const isValidLink = isValidAmazonProductURL(searchPrompt);
-    if(!user) return Swal.fire({
-      
-      title: 'Please!',
-      text: 'Log in to continue',
-      icon: 'warning',
-      confirmButtonText: 'Got it',
-      width: '20em'
-    })
-    if (!isValidLink) return Swal.fire({
-      
-      title: 'Invalid Link',
-      text: 'Provide a valid Amazon, for example: https://www.amazon.com/dp/B0BF...',
-      icon: 'error',
-      confirmButtonText: 'Got it',
-      width: '30em'
-    })
+    if (!user)
+      return Swal.fire({
+        title: "Please!",
+        text: "Log in to continue",
+        icon: "warning",
+        confirmButtonText: "Got it",
+        width: "20em",
+      });
+    if (!isValidLink)
+      return Swal.fire({
+        title: "Invalid Link",
+        text: "Provide a valid Amazon, for example: https://www.amazon.com/dp/B0BF...",
+        icon: "error",
+        confirmButtonText: "Got it",
+        width: "30em",
+      });
     try {
+      const { sub } = user;
       setIsLoading(true);
-      const product = await scrapeAndStoreProduct(searchPrompt);
+      if (sub) {
+        const product = await scrapeAndStoreProduct(searchPrompt, sub);
+
+        return Swal.fire({
+          title: "Product Tracked",
+          text: `${product?.title}`,
+          icon: "success",
+          confirmButtonText: "Got it",
+          width: "30em",
+        });
+      }
     } catch (error) {
       console.log(error);
     } finally {

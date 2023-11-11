@@ -15,6 +15,7 @@ type Props = {};
 
 const Login = ({}: Props) => {
   const { error, isLoading, user } = useUser();
+
   if (error) return <div>Error</div>;
   if (isLoading) {
     return (
@@ -51,14 +52,12 @@ const Login = ({}: Props) => {
                 <p className="font-semibold">Signed in as</p>
                 <p className="font-semibold">{user.nickname}</p>
               </DropdownItem>
-              <DropdownItem key="settings">My Settings</DropdownItem>
-              <DropdownItem key="help_and_feedback">
+              <DropdownItem key="my_products" href="/selected" color="success">My Products</DropdownItem>
+              <DropdownItem key="help_and_feedback" href="/help">
                 Help & Feedback
               </DropdownItem>
-              <DropdownItem key="logout" color="danger">
-                <Link href="/api/auth/logout">
-                  Log out
-                </Link>
+              <DropdownItem key="logout" href="/api/auth/logout" color="danger">
+                Log out
               </DropdownItem>
             </DropdownMenu>
           </Dropdown>
