@@ -9,6 +9,7 @@ import { getAveragePrice, getHighestPrice, getLowestPrice } from "../utils";
 import { User } from "@/types";
 import { generateEmailBody, sendEmail } from "../nodemailer";
 
+type RandomIndexes = number[] | number;
 
 export async function createUser(userData: IUser) {
   if (!userData) return;
@@ -98,6 +99,28 @@ export async function getAllProducts() {
     return products;
   } catch (error) {
     console.log(error);
+  }
+}
+
+export async function getRandomProducts() {
+  try {
+    connectToDB();
+    const totalProducts = await Product.countDocuments();
+    const randomIndexes: RandomIndexes = [];
+    while (randomIndexes.length < 6) {
+      const randomIndex = Math.floor(Math.random() * totalProducts);
+      if (!randomIndexes.includes(randomIndex)) {
+        randomIndexes.push(randomIndex);
+      }
+    }
+    randomIndexes.sort();
+    const randomProducts = await Product.find().skip(randomIndexes[0]).limit(6);
+    
+
+    return randomProducts;
+  } catch (error) {
+    console.error(error);
+    return [];
   }
 }
 export async function getSelectedProducts(sid: string) {
