@@ -37,7 +37,7 @@ const Home = async () => {
         <h2 className="section-text">Trending</h2>
         <div className="flex flex-wrap gap-x-8 gap-y-16">
           {allProducts?.map((product, index) => (
-            <ProductCard key={product._id} product={JSON.parse(JSON.stringify(product))}  delay={index * 0.2}/>
+            <ProductCard key={product._id} product={JSON.parse(JSON.stringify(product))}  delay={index * 0.15}/>
           ))}
         </div>
       </section>
