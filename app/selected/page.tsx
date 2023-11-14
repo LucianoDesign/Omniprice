@@ -18,7 +18,7 @@ const SelectedProducts = async () => {
               My selected
               <span className="text-primary"> Products</span>
             </h1>
-            <p className="mt-6">Keep track of your products here.</p>
+            <h2 className="mt-6 section-text">Keep track of your products here.</h2>
           </div>
         </div>
       </section>

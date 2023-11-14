@@ -3,6 +3,9 @@ import React from "react";
 import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a loader
 import { Carousel } from "react-responsive-carousel";
 import Image from "next/image";
+import { SectionWrapper } from "./HOC/SectionWrapper";
+import { motion } from "framer-motion";
+import { fadeIn } from './utils/utils'
 
 const heroImage = [
     {imgUrl: '/assets/images/laptop2.png', alt: 'laptop'},
@@ -14,7 +17,9 @@ const heroImage = [
 
 const HeroCarousel = () => {
   return (
-    <div className="hero-carousel flex justify-center items-center">
+    <motion.div 
+    variants={fadeIn("left", "", 0.1, 1)}
+    className="hero-carousel flex justify-center items-center">
       <Carousel
         showThumbs= {false}
         autoPlay
@@ -42,10 +47,10 @@ const HeroCarousel = () => {
         height={175}
         className="max-xl:hidden absolute -left-[15%] bottom-0"
       />
-    </div>
+    </motion.div>
   );
 
   
 };
 
-export default HeroCarousel;
+export default SectionWrapper(HeroCarousel, 'herocarousel');

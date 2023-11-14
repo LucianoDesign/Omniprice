@@ -3,6 +3,9 @@ import { useUser } from "@auth0/nextjs-auth0/client";
 import { scrapeAndStoreProduct } from "@/lib/actions";
 import React, { FormEvent, useState } from "react";
 import Swal from "sweetalert2";
+import { SectionWrapper } from "./HOC/SectionWrapper";
+import { motion } from "framer-motion";
+import { fadeIn } from './utils/utils'
 
 const Searchbar = () => {
   const { user } = useUser();
@@ -70,6 +73,8 @@ const Searchbar = () => {
   };
 
   return (
+    <motion.div variants={fadeIn("right", "", 0.1, 1)}>
+
     <form className="flex flex-wrap gap-4 mt-12" onSubmit={handleSubmit}>
       <input
         type="text"
@@ -86,7 +91,8 @@ const Searchbar = () => {
         {isLoading ? "Searching..." : "Search"}
       </button>
     </form>
+    </motion.div>
   );
 };
 
-export default Searchbar;
+export default SectionWrapper(Searchbar, 'searchbar');

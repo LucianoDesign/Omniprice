@@ -1,7 +1,7 @@
 "use client";
 import { useState } from "react";
 import Image from "next/image";
-
+import { useUser } from "@auth0/nextjs-auth0/client";
 import {
   Navbar,
   NavbarMenuToggle,
@@ -10,11 +10,14 @@ import {
   Link,
   NavbarMenuItem,
   NavbarMenu,
+  NavbarItem,
+  Button,
 } from "@nextui-org/react";
 import Login from "./Login";
 
 const Nav = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  let { error, isLoading, user } = useUser();
 
   const menuItems: (string | { label: string; href: string })[] = [
     "Profile",
@@ -33,21 +36,44 @@ const Nav = () => {
         />
         <NavbarBrand>
           <Link href="/" className="flex items-center gap-1">
+            <p className="nav-logo">
+              Omni<span className="text-primary">Price</span>
+            </p>
             <Image
-              src="/assets/icons/logo.svg"
+              src="/assets/icons/money-bill.svg"
               width={27}
               height={27}
               alt="logo"
             />
-            <p className="nav-logo">
-              Omni<span className="text-primary"> Price</span>
-            </p>
           </Link>
         </NavbarBrand>
       </NavbarContent>
+      <NavbarContent className="hidden sm:flex gap-4" justify="center">
+        <NavbarItem>
+          <Link color="foreground" href="/selected">
+            My Products
+          </Link>
+        </NavbarItem>
+        <NavbarItem>
+          <Link href="/help" color="foreground">
+            FAQ
+          </Link>
+        </NavbarItem>
+        <NavbarItem>
+          <Link color="foreground" href="#">
+            Settings
+          </Link>
+        </NavbarItem>
+      </NavbarContent>
 
       <NavbarContent justify="end">
-        <Login />
+        {isLoading ? (
+          <Button color="primary" isLoading>
+            Loading
+          </Button>
+        ) : (
+          <Login user={user} error={error} />
+        )}
       </NavbarContent>
       <NavbarMenu>
         {menuItems.map((item, index) => {
@@ -63,7 +89,7 @@ const Nav = () => {
                       : "foreground"
                   }
                   className="w-full"
-                  href={'#'}
+                  href={"#"}
                   size="lg"
                 >
                   {item}

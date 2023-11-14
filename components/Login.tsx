@@ -1,6 +1,6 @@
 "use client";
 
-import { useUser } from "@auth0/nextjs-auth0/client";
+
 import {
   Avatar,
   Dropdown,
@@ -11,19 +11,14 @@ import {
   Button,
   Link,
 } from "@nextui-org/react";
-type Props = {};
+type Props = {error: any, user: any};
 
-const Login = ({}: Props) => {
-  const { error, isLoading, user } = useUser();
+const Login = ({error, user}: Props) => {
+  
 
   if (error) return <div>Error</div>;
-  if (isLoading) {
-    return (
-      <Button color="primary" isLoading>
-        Loading
-      </Button>
-    );
-  }
+  
+  
   return (
     <>
       {!user && (
@@ -56,7 +51,7 @@ const Login = ({}: Props) => {
               <DropdownItem key="help_and_feedback" href="/help">
                 Help & Feedback
               </DropdownItem>
-              <DropdownItem key="logout" href="/api/auth/logout" color="danger">
+              <DropdownItem key="logout" href="/api/auth/logout" color="danger" onClick={()=>{localStorage.removeItem("user");}}>
                 Log out
               </DropdownItem>
             </DropdownMenu>

@@ -72,7 +72,7 @@ export async function scrapeAndStoreProduct(
     }
 
     revalidatePath(`/products/${newProduct._id}`);
-    return product
+    return product;
   } catch (error: any) {
     throw new Error(`Failed to create/update product: ${error.message}`);
   }
@@ -115,7 +115,6 @@ export async function getRandomProducts() {
     }
     randomIndexes.sort();
     const randomProducts = await Product.find().skip(randomIndexes[0]).limit(6);
-    
 
     return randomProducts;
   } catch (error) {
@@ -126,9 +125,9 @@ export async function getRandomProducts() {
 export async function getSelectedProducts(sid: string) {
   try {
     connectToDB();
-    const user = await Users.findOne({sid}).populate('productsList')
+    const user = await Users.findOne({ sid }).populate("productsList");
     const products = user.productsList;
-    return products
+    return products;
   } catch (error) {
     console.log(error);
     return [];
@@ -157,8 +156,6 @@ export async function addUserEmailToProduct(
   try {
     const product = await Product.findById(productId);
     if (!product) return;
-
-   
 
     const userExists = product.users.some(
       (user: User) => user.email === userEmail
