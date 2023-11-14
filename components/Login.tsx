@@ -11,9 +11,9 @@ import {
   Button,
   Link,
 } from "@nextui-org/react";
-type Props = {error: any, user: any};
+type Props = {error: any, user: any, isUser:boolean};
 
-const Login = ({error, user}: Props) => {
+const Login = ({error, user, isUser}: Props) => {
   
 
   if (error) return <div>Error</div>;
@@ -21,7 +21,7 @@ const Login = ({error, user}: Props) => {
   
   return (
     <>
-      {!user && (
+      {!isUser && !user &&(
         <Link href="/api/auth/login">
           <Button color="primary" variant="ghost">
             Login

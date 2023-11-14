@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Image from "next/image";
 import { useUser } from "@auth0/nextjs-auth0/client";
 import {
@@ -17,8 +17,15 @@ import Login from "./Login";
 
 const Nav = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  let { error, isLoading, user } = useUser();
+  const { error, isLoading, user } = useUser();
+  const [isUser, setIsUser ] = useState(false);
 
+  useEffect(() => {
+    if (user) {
+      setIsUser(true);
+    }
+  }, [user]);
+  
   const menuItems: (string | { label: string; href: string })[] = [
     "Profile",
     "Dashboard",
@@ -67,13 +74,9 @@ const Nav = () => {
       </NavbarContent>
 
       <NavbarContent justify="end">
-        {isLoading ? (
-          <Button color="primary" isLoading>
-            Loading
-          </Button>
-        ) : (
-          <Login user={user} error={error} />
-        )}
+        
+      {!isLoading && <Login user={user} error={error} isUser={isUser} />}
+       
       </NavbarContent>
       <NavbarMenu>
         {menuItems.map((item, index) => {
