@@ -1,14 +1,26 @@
+'use client'
+
 import { Product } from "@/types";
 import React from "react";
 import Link from "next/link";
 import Image from "next/image";
+import { motion } from "framer-motion";
+
 
 interface Props {
   product: Product;
+  delay: number
 }
 
-const ProductCard = ({ product }: Props) => {
+const ProductCard = ({ product, delay }: Props) => {
+ 
   return (
+    <motion.div
+      initial={{ opacity: 0, x: -20 }}
+      whileInView={{ opacity: 1, x: 0 }}
+      viewport={{once: true, amount: 0.25}}
+      transition={{ duration: 0.3, delay: delay }}
+    >
     <Link href={`/products/${product._id}`} className="product-card">
       <div className="product-card_img-container">
         <Image
@@ -32,6 +44,8 @@ const ProductCard = ({ product }: Props) => {
         </div>
       </div>
     </Link>
+
+    </motion.div>
   );
 };
 

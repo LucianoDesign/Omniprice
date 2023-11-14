@@ -25,8 +25,8 @@ const SelectedProducts = async () => {
       <section className="selected-section">
         <h2 className="section-text">Your searches</h2>
         <div className="flex flex-wrap gap-x-8 gap-y-16">
-          {myProducts?.map((product: any) => (
-            <ProductCard key={product._id} product={product} />
+          {myProducts?.map((product: any, index:number) => (
+            <ProductCard key={product._id} product={JSON.parse(JSON.stringify(product))} delay={index * 0.2}/>
           ))}
         </div>
       </section>
