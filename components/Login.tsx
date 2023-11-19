@@ -1,6 +1,6 @@
 "use client";
 
-
+import { UserProfile } from "@auth0/nextjs-auth0/client";
 import {
   Avatar,
   Dropdown,
@@ -11,23 +11,12 @@ import {
   Button,
   Link,
 } from "@nextui-org/react";
-type Props = {error: any, user: any, isUser:boolean};
 
-const Login = ({error, user, isUser}: Props) => {
-  
 
-  if (error) return <div>Error</div>;
-  
-  
+
+const Login = ({ user }: { user: UserProfile | undefined }) => {
   return (
     <>
-      {!isUser && !user &&(
-        <Link href="/api/auth/login">
-          <Button color="primary" variant="ghost">
-            Login
-          </Button>
-        </Link>
-      )}
       {user && (
         <NavbarItem>
           <Dropdown placement="bottom-end">
@@ -47,17 +36,33 @@ const Login = ({error, user, isUser}: Props) => {
                 <p className="font-semibold">Signed in as</p>
                 <p className="font-semibold">{user.nickname}</p>
               </DropdownItem>
-              <DropdownItem key="my_products" href="/selected" color="success">My Products</DropdownItem>
+              <DropdownItem key="my_products" href="/selected" color="success">
+                My Products
+              </DropdownItem>
               <DropdownItem key="help_and_feedback" href="/help">
                 Help & Feedback
               </DropdownItem>
-              <DropdownItem key="logout" href="/api/auth/logout" color="danger" onClick={()=>{localStorage.removeItem("user");}}>
+              <DropdownItem
+                key="logout"
+                href="/api/auth/logout"
+                color="danger"
+                onClick={() => {
+                  localStorage.removeItem("user");
+                }}
+              >
                 Log out
               </DropdownItem>
             </DropdownMenu>
           </Dropdown>
         </NavbarItem>
         // https://temp-mail.org/
+      )}
+      {!user && (
+        <Link href="/api/auth/login">
+          <Button color="primary" variant="ghost">
+            Login
+          </Button>
+        </Link>
       )}
     </>
   );

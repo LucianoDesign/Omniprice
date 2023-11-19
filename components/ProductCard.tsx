@@ -20,6 +20,7 @@ const ProductCard = ({ product, delay }: Props) => {
       whileInView={{ opacity: 1, x: 0 }}
       viewport={{once: true, amount: 0.25}}
       transition={{ duration: 0.3, delay: delay }}
+      className="flex sm:w-[292px] w-full"
     >
     <Link href={`/products/${product._id}`} className="product-card">
       <div className="product-card_img-container">

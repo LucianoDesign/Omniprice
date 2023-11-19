@@ -5,6 +5,8 @@ import { Inter, Space_Grotesk } from "next/font/google";
 import { UserProvider } from "@auth0/nextjs-auth0/client";
 import { Providers } from "./providers";
 
+
+
 const inter = Inter({ subsets: ["latin"] });
 const spaceGrotesk = Space_Grotesk({
   subsets: ["latin"],
@@ -17,17 +19,21 @@ export const metadata: Metadata = {
     "Track product prices whith no effort and save money on your shopping",
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
+  
+ 
+
+
   return (
     <html lang="en">
       <UserProvider>
         <body className={inter.className}>
           <Providers>
-            <Nav />
+            <Nav/>
             <main className="max-w-10xl mx-auto">{children}</main>
           </Providers>
         </body>
