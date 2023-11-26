@@ -46,7 +46,7 @@ export function extractCurrency(element: any) {
   return currencyText ? currencyText : "";
 }
 
-// Extracts description from two possible elements from amazon
+// Extracts description from two possible elements from Meli
 export function extractDescription($: any) {
   // these are possible elements holding description of the product
   const selectors = [

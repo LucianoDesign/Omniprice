@@ -4,6 +4,7 @@ import { useState, Fragment, FormEvent } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 import Image from "next/image";
 import { addUserEmailToProduct } from "@/lib/actions";
+import { useUser } from "@auth0/nextjs-auth0/client";
 
 interface Props {
   productId: string
@@ -13,8 +14,9 @@ interface Props {
 const Modal = ({productId} : Props) => {
   let [isOpen, setIsOpen] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false)
-  const [email, setEmail] = useState('')
-
+  const { user } = useUser();
+  const [email, setEmail] = useState(user?.email || '')
+  
   const openModal = () => setIsOpen(true);
   const closeModal = () => setIsOpen(false);
 

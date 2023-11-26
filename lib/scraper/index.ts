@@ -9,7 +9,7 @@ import {
   extractPrice,
 } from "../utils";
 
-export async function scrapeAmazonProduct(url: string) {
+export async function scrapeMeliProduct(url: string) {
   if (!url) return;
 
   // BrightData proxy configuration

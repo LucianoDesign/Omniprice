@@ -21,7 +21,8 @@ const Nav = () => {
   const { user, error, isLoading } = useUser();
   const path = usePathname();
 
-  const menuItems: (string | { name: string; href: string })[] = [
+  const menuItems: { name: string; href: string }[] = [
+    { name: "Home", href:"/"},
     { name: "My Products", href: "/selected" },
     { name: "Help", href: "/help" },
     { name: "Settings", href: "#" },
@@ -49,68 +50,63 @@ const Nav = () => {
         </NavbarBrand>
       </NavbarContent>
       <NavbarContent className="hidden sm:flex gap-4" justify="center">
+      <NavbarItem>
+          <Link
+            as={NextLink}
+            color={path === "/" ? "primary" : "foreground"}
+            href="/"
+          >
+            Home
+          </Link>
+        </NavbarItem>
         <NavbarItem>
-          <Link as={NextLink} color={path === "/selected" ? "primary" : "foreground" } href="/selected">
+          <Link
+            as={NextLink}
+            color={path === "/selected" ? "primary" : "foreground"}
+            href="/selected"
+          >
             My Products
           </Link>
         </NavbarItem>
         <NavbarItem>
-          <Link as={NextLink} href="/help" color={path === "/help" ? "primary" : "foreground"}>
+          <Link
+            as={NextLink}
+            href="/help"
+            color={path === "/help" ? "primary" : "foreground"}
+          >
             FAQ
           </Link>
         </NavbarItem>
         <NavbarItem>
-          <Link as={NextLink} color={path === "/#" ? "primary" : "foreground"} href="#">
+          <Link
+            as={NextLink}
+            color={path === "/#" ? "primary" : "foreground"}
+            href="#"
+          >
             Settings
           </Link>
         </NavbarItem>
       </NavbarContent>
 
       <NavbarContent justify="end">
-        <Login user={user} />
+        <Login user={user} isLoading={isLoading}/>
       </NavbarContent>
       <NavbarMenu>
         {menuItems.map((item, index) => {
-          if (typeof item === "string") {
-            return (
-              <NavbarMenuItem key={`${item}-${index}`}>
-                <Link
-                  color={
-                    index === 0
-                      ? "primary"
-                      : index === menuItems.length - 1
-                      ? "danger"
-                      : "foreground"
-                  }
-                  className="w-full"
-                  href={"#"}
-                  size="lg"
-                >
-                  {item}
-                </Link>
-              </NavbarMenuItem>
-            );
-          } else {
-            return (
-              <NavbarMenuItem key={`${item.name}-${index}`}>
-                <Link
-                  as={NextLink}
-                  color={
-                    index === 1
-                      ? "primary"
-                      : index === menuItems.length - 1
-                      ? "danger"
-                      : "foreground"
-                  }
-                  className="w-full"
-                  href={item.href}
-                  size="lg"
-                >
-                  {item.name}
-                </Link>
-              </NavbarMenuItem>
-            );
-          }
+          return (
+            <NavbarMenuItem key={`${item.name}-${index}`}>
+              <Link
+                as={NextLink}
+                color={path === item.href ? "primary" : "foreground"}
+                className="w-full font-bold flex justify-center text-3xl p-4"
+                href={item.href}
+                size="lg"
+                onClick={()=>{setIsMenuOpen(false)}}
+              >
+                {item.name}
+              </Link>
+            </NavbarMenuItem>
+          );
         })}
       </NavbarMenu>
     </Navbar>

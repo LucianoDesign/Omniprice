@@ -12,15 +12,12 @@ const Searchbar = () => {
   const [searchPrompt, setSearchPrompt] = useState("");
   const [isLoading, setIsLoading] = useState(false);
 
-  const isValidAmazonProductURL = (url: string) => {
+  const isValidMeliProductURL = (url: string) => {
     try {
       const parsedURL = new URL(url);
       const hostname = parsedURL.hostname;
 
       if (
-        hostname.includes("amazon.com") ||
-        hostname.includes("amazon.") ||
-        hostname.endsWith("amazon") ||
         hostname.includes("mercadolibre.com") ||
         hostname.includes("mercadolibre.") ||
         hostname.endsWith("mercadlibre")
@@ -34,7 +31,7 @@ const Searchbar = () => {
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    const isValidLink = isValidAmazonProductURL(searchPrompt);
+    const isValidLink = isValidMeliProductURL(searchPrompt);
     if (!user)
       return Swal.fire({
         title: "Please!",
@@ -46,7 +43,7 @@ const Searchbar = () => {
     if (!isValidLink)
       return Swal.fire({
         title: "Invalid Link",
-        text: "Provide a valid Amazon, for example: https://www.amazon.com/dp/B0BF...",
+        text: "Provide a valid Mercado Libre link, example: https://www.mercadolibre.com.ar/mon...",
         icon: "error",
         confirmButtonText: "Got it",
         width: "30em",

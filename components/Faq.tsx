@@ -5,14 +5,14 @@ import { Accordion, AccordionItem } from "@nextui-org/react";
 const Faq = () => {
     const itemClasses = {
         base: "py-0 w-full",
-        title: "font-normal text-medium",
+        title: "font-normal text-large",
         trigger: "px-2 py-0 data-[hover=true]:bg-default-100 rounded-lg h-14 flex items-center",
         indicator: "text-medium",
-        content: "text-small px-2",
+        content: "text-small px-2 ",
       };
 
   return (
-    <Accordion itemClasses={itemClasses}variant="light">
+    <Accordion itemClasses={itemClasses}variant="light" >
       <AccordionItem key="1" aria-label="Accordion 1" title="What is the purpose of OmniPrice?" >
         This is a price tracker; you can get the best price for your favorite product effortlessly.
       </AccordionItem>

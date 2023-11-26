@@ -1,7 +1,7 @@
 import Product from "@/lib/models/product.model";
 import { connectToDB } from "@/lib/mongoose";
 import { generateEmailBody, sendEmail } from "@/lib/nodemailer";
-import { scrapeAmazonProduct } from "@/lib/scraper";
+import { scrapeMeliProduct } from "@/lib/scraper";
 import { getAveragePrice, getEmailNotifType, getHighestPrice, getLowestPrice } from "@/lib/utils";
 import { NextResponse } from "next/server";
 
@@ -21,7 +21,7 @@ export async function GET () {
 
         const updatedProducts = await Promise.all(
             products.map(async(currentProduct) => {
-                const scrapedProduct = await scrapeAmazonProduct(currentProduct.url);
+                const scrapedProduct = await scrapeMeliProduct(currentProduct.url);
 
                 if(!scrapedProduct) throw new Error('No products found')
                 

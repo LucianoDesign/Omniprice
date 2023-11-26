@@ -10,13 +10,17 @@ import {
   NavbarItem,
   Button,
   Link,
+  CircularProgress
 } from "@nextui-org/react";
 
 
 
-const Login = ({ user }: { user: UserProfile | undefined }) => {
+const Login = ({ user , isLoading }: { user: UserProfile | undefined  , isLoading: boolean}) => {
   return (
     <>
+      {isLoading && (
+         <CircularProgress size="sm" aria-label="Loading..." />
+      )}
       {user && (
         <NavbarItem>
           <Dropdown placement="bottom-end">
@@ -25,7 +29,7 @@ const Login = ({ user }: { user: UserProfile | undefined }) => {
                 isBordered
                 as="button"
                 className="transition-transform"
-                color="secondary"
+                color="primary"
                 name={user.nickname ?? "Default Name"}
                 size="sm"
                 src={user.picture ?? "Default Picture"}
