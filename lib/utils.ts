@@ -27,7 +27,7 @@ export function extractPrice(...elements: any) {
       return firstPrice || cleanPrice;
     }
   }
-  return ''
+  return 0
 }
 // Extracts the if it is OutOfStock
 export function extractOutOfStock(...elements: any) {
