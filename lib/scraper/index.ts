@@ -70,7 +70,7 @@ export async function scrapeMeliProduct(url: string) {
       image: images,
       title,
       currentPrice: Number(currentPrice) || Number(originalPrice),
-      originalPrice: Number(originalPrice) || Number(currentPrice),
+      originalPrice: Number(originalPrice) || Number(currentPrice) || 0,
       priceHistory: [],
       discountRate: Number(numericDiscountRate),
       category: "category",
