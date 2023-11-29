@@ -1,4 +1,5 @@
 "use server";
+import { cache } from 'react'
 
 import { revalidatePath } from "next/cache";
 import { connectToDB } from "../mongoose";
@@ -102,7 +103,7 @@ export async function getAllProducts() {
   }
 }
 
-export async function getRandomProducts() {
+export const getRandomProducts = cache(async() => {
   try {
     connectToDB();
     const totalProducts = await Product.countDocuments();
@@ -121,7 +122,7 @@ export async function getRandomProducts() {
     console.error(error);
     return [];
   }
-}
+})
 export async function getSelectedProducts(sid: string) {
   try {
     connectToDB();

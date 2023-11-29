@@ -8,11 +8,12 @@ import { motion } from "framer-motion";
 import { fadeIn } from "./utils/utils";
 
 const heroImage = [
-  { imgUrl: "/assets/images/laptop2.png", alt: "laptop" },
-  { imgUrl: "/assets/images/iphone.jpg", alt: "iphone" },
-  { imgUrl: "/assets/images/hero-3.svg", alt: "lamp" },
-  { imgUrl: "/assets/images/hero-4.svg", alt: "air fryer" },
-  { imgUrl: "/assets/images/hero-5.svg", alt: "chair" },
+  
+  { imgUrl: "/assets/images/iphone.png", alt: "iphone" },
+  { imgUrl: "/assets/images/table-lamp.png", alt: "lamp" },
+  { imgUrl: "/assets/images/washing-machine.png", alt: "washing-machine" },
+  { imgUrl: "/assets/images/chair.png", alt: "chair" },
+  { imgUrl: "/assets/images/sneaker.png", alt: "sneaker" }
 ];
 
 const HeroCarousel = () => {
@@ -30,7 +31,7 @@ const HeroCarousel = () => {
         showStatus={false}
       >
         {heroImage.map((image) => (
-          <div key={image.alt}>
+          <div key={image.alt} >
             <Image
               src={image.imgUrl}
               alt={image.alt}

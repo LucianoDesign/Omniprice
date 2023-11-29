@@ -21,7 +21,7 @@ const Login = ({ user , isLoading }: { user: UserProfile | undefined  , isLoadin
       {isLoading && (
          <CircularProgress size="sm" aria-label="Loading..." />
       )}
-      {user && (
+      {!isLoading && user && (
         <NavbarItem>
           <Dropdown placement="bottom-end">
             <DropdownTrigger>
@@ -61,7 +61,7 @@ const Login = ({ user , isLoading }: { user: UserProfile | undefined  , isLoadin
         </NavbarItem>
         // https://temp-mail.org/
       )}
-      {!user && (
+      {!isLoading && !user && (
         <Link href="/api/auth/login">
           <Button color="primary" variant="ghost">
             Login
